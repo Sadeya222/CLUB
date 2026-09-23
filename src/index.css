@@ -1,0 +1,204 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  background: #f8fafc;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* ---------- focus visibility (a11y) ---------- */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid #0f172a;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ---------- slim scrollbars ---------- */
+.slim-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+.slim-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.slim-scroll::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 99px;
+}
+.slim-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ---------- animations ---------- */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes slide-in-right {
+  from {
+    opacity: 0.4;
+    transform: translateX(48px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes ping-soft {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  80%,
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+@keyframes typing-dot {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+.anim-fade-up {
+  animation: fade-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.anim-drawer {
+  animation: slide-in-right 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.anim-toast {
+  animation: toast-in 0.25s ease-out both;
+}
+.typing-dot {
+  animation: typing-dot 1.1s infinite;
+}
+.typing-dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.typing-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-fade-up,
+  .anim-drawer,
+  .anim-toast {
+    animation: none;
+  }
+}
+
+/* ---------- leaflet polish ---------- */
+.leaflet-container {
+  font-family: var(--font-sans);
+  background: #e8eef4;
+  z-index: 0;
+}
+.leaflet-control-zoom {
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12) !important;
+}
+.leaflet-control-zoom a {
+  border: none !important;
+  color: #0f172a !important;
+  width: 34px !important;
+  height: 34px !important;
+  line-height: 34px !important;
+}
+.leaflet-popup-content-wrapper {
+  border-radius: 16px !important;
+  padding: 0 !important;
+  overflow: hidden;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.25) !important;
+}
+.leaflet-popup-content {
+  margin: 0 !important;
+  line-height: 1.4 !important;
+  width: 240px !important;
+}
+.leaflet-popup-tip {
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.2) !important;
+}
+.club-marker {
+  transition: transform 0.18s ease;
+}
+.club-marker:hover {
+  z-index: 999 !important;
+}
+
+/* ---------- CARTO data layer tooltips ---------- */
+.leaflet-tooltip.zip-tooltip,
+.leaflet-tooltip.poi-tooltip {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 8px 11px;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.18);
+  font-family: var(--font-sans);
+  color: #334155;
+  white-space: nowrap;
+}
+.leaflet-tooltip-top.zip-tooltip::before,
+.leaflet-tooltip-top.poi-tooltip::before {
+  border-top-color: #ffffff;
+}
+.zip-tooltip .zt-h {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0f172a;
+}
+.zip-tooltip .zt-v {
+  margin-top: 2px;
+  font-size: 12px;
+}
+.zip-tooltip .zt-s {
+  margin-top: 2px;
+  font-size: 11px;
+  color: #64748b;
+}
+.leaflet-container .leaflet-control-attribution {
+  font-size: 10px;
+  background: rgba(255, 255, 255, 0.85);
+  border-top-left-radius: 8px;
+}
